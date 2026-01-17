@@ -62,3 +62,4 @@ C:\lexicon_dotnet_nov25\Blogg\Blogg\obj\Debug\net10.0\refint\Blogg.dll
 C:\lexicon_dotnet_nov25\Blogg\Blogg\obj\Debug\net10.0\Blogg.pdb
 C:\lexicon_dotnet_nov25\Blogg\Blogg\obj\Debug\net10.0\Blogg.genruntimeconfig.cache
 C:\lexicon_dotnet_nov25\Blogg\Blogg\obj\Debug\net10.0\ref\Blogg.dll
+C:\lexicon_dotnet_nov25\Blogg\Blogg\obj\Debug\net10.0\Blogg.sourcelink.json

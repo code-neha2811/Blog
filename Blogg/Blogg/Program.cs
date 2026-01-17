@@ -79,18 +79,15 @@ while (running)
         Console.Write("Enter ID to update: ");
         if (int.TryParse(Console.ReadLine(), out int id))
         {
-            Console.Write("Enter new Title: ");
-            string newTitle = Console.ReadLine();
-            db.UpdateBlogPost(id, newTitle);
+            Console.Write("New Title (leave blank to keep current): ");
+            string t = Console.ReadLine();
+            Console.Write("New Author (leave blank to keep current): ");
+            string a = Console.ReadLine();
+
+            db.UpdateBlogPost(id, t, a);
 
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine("Update complete!");
-            Console.ResetColor();
-        }
-        else
-        {
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine("Invalid ID format.");
+            Console.WriteLine("Update processed!");
             Console.ResetColor();
         }
         Console.ReadKey();

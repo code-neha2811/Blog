@@ -19,16 +19,39 @@ namespace Blogg.Demo
             }
         }
 
-        public void UpdateBlogPost(int id, string newTitle)
+        public void UpdateBlogPost(int id, string newTitle, string newAuthor)
         {
-            string sql = "UPDATE BlogPost SET Title = @Title WHERE Id = @Id";
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                SqlCommand command = new SqlCommand(sql, connection);
-                command.Parameters.AddWithValue("@Id", id);
-                command.Parameters.AddWithValue("@Title", newTitle ?? "");
                 connection.Open();
-                command.ExecuteNonQuery();
+                string currentAuthor = "";
+                string currentTitle = "";
+
+                string selectSql = "SELECT Author, Title FROM BlogPost WHERE Id = @Id";
+                using (SqlCommand selectCommand = new SqlCommand(selectSql, connection))
+                {
+                    selectCommand.Parameters.AddWithValue("@Id", id);
+                    using (SqlDataReader reader = selectCommand.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            currentAuthor = reader["Author"].ToString();
+                            currentTitle = reader["Title"].ToString();
+                        }
+                    }
+                }
+
+                string finalTitle = string.IsNullOrWhiteSpace(newTitle) ? currentTitle : newTitle;
+                string finalAuthor = string.IsNullOrWhiteSpace(newAuthor) ? currentAuthor : newAuthor;
+
+                string updateSql = "UPDATE BlogPost SET Title = @Title, Author = @Author WHERE Id = @Id";
+                using (SqlCommand updateCommand = new SqlCommand(updateSql, connection))
+                {
+                    updateCommand.Parameters.AddWithValue("@Id", id);
+                    updateCommand.Parameters.AddWithValue("@Title", finalTitle);
+                    updateCommand.Parameters.AddWithValue("@Author", finalAuthor);
+                    updateCommand.ExecuteNonQuery();
+                }
             }
         }
 
